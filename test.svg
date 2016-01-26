@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+
+<html>
+<body>
+<svg version="1.1" baseProfile="full" width="600" height="600" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <defs>
+
+        <linearGradient id="no-work-gradient" x1="0" y1="0" x2="10" y2="10" gradientUnits="userSpaceOnUse" spreadMethod="repeat">
+            <stop offset="0%" stop-color="rgb(246,246,246)"/>
+            <stop offset="50%" stop-color="rgb(246,246,246)"/>
+            <stop offset="50%" stop-color="white"/>
+            <stop offset="100%" stop-color="white"/>
+        </linearGradient>
+
+        <rect id="grid-column--no-work" x="0" y="25" width="25" height="100%"/>
+
+        <line id="grid-seperator" x1="0" y1="0" x2="0" y2="100%"/>
+
+        <polyline id="po-tip--down-in" points="-12.5,25 -12.5,12.5 0,12.5"/>
+        <polyline id="po-tip--up-in" points="-12.5,0 -12.5,12.5 0,12.5"/>
+        <polyline id="po-tip--down-out" points="0,12.5 12.5,12.5 12.5,25"/>
+        <polyline id="po-tip--up-out" points="0,12.5 12.5,12.5 12.5,0"/>
+
+        <marker id="po-tip-marker" refX="4" refY="4" markerWidth="4" markerHeight="8">
+            <polygon points="0,0 4,4 0,8" />
+        </marker>
+
+        <polyline id="po-link" points="12.5,25 -12.5,25"/>
+
+        <circle id="po-handle--left" cx="-12.5" cy="12.5" r="4"/>
+        <circle id="po-handle--right" cx="12.5" cy="12.5" r="4"/>
+
+        <rect id="po-body--task" x="0" y="6.5" width="25" height="12"/>
+        <polygon id="po-body--milestone" points="0,6.5 6,12.5 0,18.5 -6,12.5"/>
+
+    </defs>
+
+    <style>
+        svg {
+            font-family: Helvetica;
+            font-size: 16;
+        }
+
+        #head .head-bg {
+            fill: rgb(223,228,231);
+        }
+        #head .head-column {
+            fill: #666;
+            text-anchor: middle;
+        }
+
+        #grid .grid-column--no-work {
+            fill: url(#no-work-gradient);
+        }
+        #grid .grid-seperator {
+            stroke: #aaa;
+            stroke-dasharray: 4 4;
+        }
+
+        #data .data-po-tip {
+            fill: none;
+            stroke: #777;
+        }
+        #data .data-po-tip--in {
+            marker-end: url(#po-tip-marker);
+        }
+
+        #data .data-po-link {
+            fill: none;
+            stroke: #777;
+        }
+
+        #data .data-po-handle {
+            display: none;
+            fill: #222;
+            cursor: pointer;
+        }
+        #data .data-po:hover .data-po-handle {
+            display: block;
+        }
+
+        #data .data-po-body {
+            cursor: ew-resize;
+        }
+        #data .data-po-body--task {
+            fill: rgb(0, 172, 95);
+        }
+        #data .data-po-body--task:hover {
+            fill: rgb(20, 192, 115);
+        }
+        #data .data-po-body--milestone {
+            fill: black;
+        }
+
+        #ghost {
+            display: none;
+        }
+        #ghost .data-po-body {
+            opacity: .3;
+        }
+    </style>
+
+    <g id="head">
+        <rect class="head-bg" x="0" y="0" width="300" height="25"/>
+        <text class="head-column" x="12.5" y="20">25</text>
+        <text class="head-column" x="37.5" y="20">26</text>
+        <text class="head-column" x="62.5" y="20">27</text>
+        <text class="head-column" x="87.5" y="20">28</text>
+        <text class="head-column" x="112.5" y="20">29</text>
+        <text class="head-column" x="137.5" y="20">30</text>
+        <text class="head-column" x="162.5" y="20">1</text>
+        <text class="head-column" x="187.5" y="20">2</text>
+        <text class="head-column" x="212.5" y="20">3</text>
+        <text class="head-column" x="237.5" y="20">4</text>
+        <text class="head-column" x="262.5" y="20">5</text>
+        <text class="head-column" x="287.5" y="20">6</text>
+    </g>
+
+    <g id="grid">
+        <use class="grid-column--no-work" xlink:href="#grid-column--no-work" x="75"/>
+        <use class="grid-column--no-work" xlink:href="#grid-column--no-work" x="100"/>
+        <use class="grid-column--no-work" xlink:href="#grid-column--no-work" x="250"/>
+        <use class="grid-column--no-work" xlink:href="#grid-column--no-work" x="275"/>
+
+        <use class="grid-seperator" xlink:href="#grid-seperator" x="25"/>
+        <use class="grid-seperator" xlink:href="#grid-seperator" x="50"/>
+        <use class="grid-seperator" xlink:href="#grid-seperator" x="75"/>
+        <use class="grid-seperator" xlink:href="#grid-seperator" x="100"/>
+        <use class="grid-seperator" xlink:href="#grid-seperator" x="125"/>
+        <use class="grid-seperator" xlink:href="#grid-seperator" x="150"/>
+        <use class="grid-seperator" xlink:href="#grid-seperator" x="175"/>
+        <use class="grid-seperator" xlink:href="#grid-seperator" x="200"/>
+        <use class="grid-seperator" xlink:href="#grid-seperator" x="225"/>
+        <use class="grid-seperator" xlink:href="#grid-seperator" x="250"/>
+        <use class="grid-seperator" xlink:href="#grid-seperator" x="275"/>
+    </g>
+
+    <g id="data">
+
+        <!-- 2x task -->
+        <g id="po1" class="data-po data-po--task" transform="translate(25,100)" onmousedown="selectElement(evt)">
+            <use class="data-po-tip" xlink:href="#po-tip--down-out" x="50"/>
+            <use class="data-po-link" xlink:href="#po-link" x="75"/>
+            <use class="data-po-handle" xlink:href="#po-handle--left" x="0"/>
+            <use class="data-po-handle" xlink:href="#po-handle--right" x="50"/>
+            <use class="data-po-body data-po-body--task" xlink:href="#po-body--task" transform="scale(2,1)"/>
+        </g>
+
+        <!-- 3x task -->
+        <g id="po1" class="data-po data-po--task" transform="translate(125,125)" onmousedown="selectElement(evt)">
+            <use class="data-po-tip data-po-tip--in" xlink:href="#po-tip--up-in"/>
+            <use class="data-po-tip" xlink:href="#po-tip--down-out" x="75"/>
+            <use class="data-po-link" xlink:href="#po-link" x="75"/>
+            <use class="data-po-handle" xlink:href="#po-handle--left" x="0"/>
+            <use class="data-po-handle" xlink:href="#po-handle--right" x="75"/>
+            <use class="data-po-body data-po-body--task" xlink:href="#po-body--task" transform="scale(3,1)"/>
+        </g>
+
+        <!-- milestone -->
+        <g id="po1" class="data-po data-po--task" transform="translate(200,150)">
+            <use class="data-po-tip" xlink:href="#po-tip--up-in"/>
+            <use class="data-po-tip" xlink:href="#po-tip--down-out"/>
+            <use class="data-po-link" xlink:href="#po-link" x="0"/>
+            <use class="data-po-handle" xlink:href="#po-handle--left" x="0"/>
+            <use class="data-po-handle" xlink:href="#po-handle--right" x="0"/>
+            <use class="data-po-body data-po-body--milestone" xlink:href="#po-body--milestone"/>
+        </g>
+
+        <!-- 1x task -->
+        <g id="po1" class="data-po data-po--task" transform="translate(200,175)" onmousedown="selectElement(evt)">
+            <use class="data-po-tip data-po-tip--in" xlink:href="#po-tip--up-in"/>
+            <use class="data-po-handle" xlink:href="#po-handle--left" x="0"/>
+            <use class="data-po-handle" xlink:href="#po-handle--right" x="25"/>
+            <use class="data-po-body data-po-body--task" xlink:href="#po-body--task"/>
+        </g>
+
+        <!-- ghost for moving -->
+        <g id="ghost" class="data-po data-po--task">
+            <use class="data-po-body data-po-body--task" xlink:href="#po-body--task"/>
+        </g>
+    </g>
+
+</svg>
+<script src="./test.js"></script>
+</body>
+</html>
